@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:healthview/Common/components.dart';
+import 'package:healthview/Forms/bloodpressure.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -13,10 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.teal,
-          title: Center(child: Text(widget.title)),
-        ),
+        appBar: MainAppBar(),
         // Container for main application
         body: SafeArea(
             child: Column(
@@ -34,10 +33,13 @@ class _HomePageState extends State<HomePage> {
                     )),
               ),
               onPressed: () {
-                // TODO: Add navigation to BloodPressure form
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new BloodPressureForm()));
               },
             ),
-            // Button to navigate to Height/Weight form for entryddd
+            // Button to navigate to Height/Weight form for entry
             FlatButton(
               child: Card(
                 child: ListTile(
