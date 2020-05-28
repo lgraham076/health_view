@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:healthview/Common/components.dart';
 import 'package:healthview/Forms/bloodpressure.dart';
+import 'package:healthview/Forms/measurement.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -52,7 +54,10 @@ class _HomePageState extends State<HomePage> {
                     )),
               ),
               onPressed: () {
-                //TODO: Add navigation to Height/Weight form
+                Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                        builder: (context) => new MeasurementForm()));
               },
             )
           ],

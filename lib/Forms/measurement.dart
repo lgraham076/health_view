@@ -3,27 +3,21 @@ import 'package:intl/intl.dart';
 
 import 'package:healthview/Common/components.dart';
 
-class BloodPressureEntry {
-  int systolic;
-  int diastolic;
+class MeasurementEntry {
+  int height;
+  int weight;
   DateTime entryDate = DateTime.now();
-
-  @override
-  String toString() {
-    String formattedDate = new DateFormat('yyyy-MM-dd HH:mm').format(entryDate);
-    return '$systolic/$diastolic $formattedDate';
-  }
 }
 
-class BloodPressureForm extends StatefulWidget {
+class MeasurementForm extends StatefulWidget {
   @override
-  _BloodPressureFormState createState() => _BloodPressureFormState();
+  _MeasurementFormState createState() => _MeasurementFormState();
 }
 
-class _BloodPressureFormState extends State<BloodPressureForm> {
+class _MeasurementFormState extends State<MeasurementForm> {
   final _formKey = GlobalKey<FormState>();
 
-  BloodPressureEntry entry = BloodPressureEntry();
+  MeasurementEntry entry = MeasurementEntry();
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +30,20 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: Column(
                 children: <Widget>[
-                  Text('Blood Pressure'),
+                  Text('Measurements'),
                   TextFormField(
                     decoration: InputDecoration(
                         icon: Icon(Icons.assignment_ind),
-                        labelText: 'Systolic(mmHg)'),
+                        labelText: 'Height(inches)'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please systolic value';
+                        return 'Please enter a height value';
                       }
-                      int systolic = int.tryParse(value);
-                      if (systolic == null) {
+                      int height = int.tryParse(value);
+                      if (height == null) {
                         return 'Please enter a valid integer';
                       } else {
-                        entry.systolic = systolic;
+                        entry.height = height;
                       }
                       return null;
                     },
@@ -57,16 +51,16 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                   TextFormField(
                     decoration: InputDecoration(
                         icon: Icon(Icons.assignment_ind),
-                        labelText: 'Diastolic(mmHg)'),
+                        labelText: 'Weight(lbs)'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please diastolic value';
+                        return 'Please enter a weight value';
                       }
-                      int diastolic = int.tryParse(value);
-                      if (diastolic == null) {
+                      int weight = int.tryParse(value);
+                      if (weight == null) {
                         return 'Please enter a valid integer';
                       } else {
-                        entry.diastolic = diastolic;
+                        entry.weight = weight;
                       }
                       return null;
                     },
@@ -86,8 +80,8 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                         ).then((date) {
                           setState(() {
                             showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now())
+                                context: context,
+                                initialTime: TimeOfDay.now())
                                 .then((time) {
                               if (date != null && time != null) {
                                 setState(() {
