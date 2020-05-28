@@ -36,7 +36,10 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: Column(
                 children: <Widget>[
-                  Text('Blood Pressure'),
+                  ListTile(
+                    leading: Icon(Icons.favorite),
+                    title: Text('Blood Pressure'),
+                  ),
                   TextFormField(
                     decoration: InputDecoration(
                         icon: Icon(Icons.assignment_ind),

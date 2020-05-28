@@ -36,10 +36,13 @@ class _MeasurementFormState extends State<MeasurementForm> {
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
               child: Column(
                 children: <Widget>[
-                  Text('Measurements'),
+                  ListTile(
+                    leading: Icon(Icons.show_chart),
+                    title: Text('Measurements')
+                  ),
                   TextFormField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.assignment_ind),
+                        icon: Icon(Icons.accessibility),
                         labelText: 'Height(inches)'),
                     validator: (value) {
                       if (value.isEmpty) {
@@ -56,7 +59,7 @@ class _MeasurementFormState extends State<MeasurementForm> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.assignment_ind),
+                        icon: Icon(Icons.panorama_wide_angle),
                         labelText: 'Weight(lbs)'),
                     validator: (value) {
                       if (value.isEmpty) {
