@@ -126,8 +126,8 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
   }
 
   void _save(BloodPressureEntry entry) {
-    // TODO: Save Blood Pressure Entry to database/JSON
     print(entry);
+    // TODO: Save Blood Pressure Entry to database/JSON
     Navigator.pop(context);
   }
 }

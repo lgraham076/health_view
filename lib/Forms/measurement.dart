@@ -125,8 +125,8 @@ class _MeasurementFormState extends State<MeasurementForm> {
   }
 
   void _save(MeasurementEntry entry) {
-    // TODO: Save Measurement Entry in database/JSON
     print(entry);
+    // TODO: Save Measurement Entry in database/JSON
     Navigator.pop(context);
   }
 }
