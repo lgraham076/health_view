@@ -23,10 +23,9 @@ class BloodPressureForm extends StatefulWidget {
 class _BloodPressureFormState extends State<BloodPressureForm> {
   final _formKey = GlobalKey<FormState>();
 
-  BloodPressureEntry entry = BloodPressureEntry();
-
   @override
   Widget build(BuildContext context) {
+    BloodPressureEntry entry = BloodPressureEntry();
     return Scaffold(
       appBar: MainAppBar(),
       body: SafeArea(
@@ -113,7 +112,7 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         print('Valid form submitted');
-                        print(entry);
+                        _save(entry);
                       } else {
                         print('Invalid form');
                       }
@@ -124,5 +123,11 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
             )),
       ),
     );
+  }
+
+  void _save(BloodPressureEntry entry) {
+    print(entry);
+    // TODO: Save Blood Pressure Entry to database/JSON
+    Navigator.pop(context);
   }
 }

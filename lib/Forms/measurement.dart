@@ -23,10 +23,9 @@ class MeasurementForm extends StatefulWidget {
 class _MeasurementFormState extends State<MeasurementForm> {
   final _formKey = GlobalKey<FormState>();
 
-  MeasurementEntry entry = MeasurementEntry();
-
   @override
   Widget build(BuildContext context) {
+    MeasurementEntry entry = MeasurementEntry();
     return Scaffold(
       appBar: MainAppBar(),
       body: SafeArea(
@@ -37,14 +36,13 @@ class _MeasurementFormState extends State<MeasurementForm> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.show_chart),
-                    title: Text('Measurements')
-                  ),
+                      leading: Icon(Icons.show_chart),
+                      title: Text('Measurements')),
                   TextFormField(
                     decoration: InputDecoration(
                         icon: Icon(Icons.accessibility),
                         labelText: 'Height(inches)'),
-                    validator: (value) {
+                    validator: (String value) {
                       if (value.isEmpty) {
                         return 'Please enter a height value';
                       }
@@ -61,7 +59,7 @@ class _MeasurementFormState extends State<MeasurementForm> {
                     decoration: InputDecoration(
                         icon: Icon(Icons.panorama_wide_angle),
                         labelText: 'Weight(lbs)'),
-                    validator: (value) {
+                    validator: (String value) {
                       if (value.isEmpty) {
                         return 'Please enter a weight value';
                       }
@@ -89,8 +87,8 @@ class _MeasurementFormState extends State<MeasurementForm> {
                         ).then((date) {
                           setState(() {
                             showTimePicker(
-                                context: context,
-                                initialTime: TimeOfDay.now())
+                                    context: context,
+                                    initialTime: TimeOfDay.now())
                                 .then((time) {
                               if (date != null && time != null) {
                                 setState(() {
@@ -113,7 +111,7 @@ class _MeasurementFormState extends State<MeasurementForm> {
                     onPressed: () {
                       if (_formKey.currentState.validate()) {
                         print('Valid form submitted');
-                        print(entry);
+                        _save(entry);
                       } else {
                         print('Invalid form');
                       }
@@ -124,5 +122,11 @@ class _MeasurementFormState extends State<MeasurementForm> {
             )),
       ),
     );
+  }
+
+  void _save(MeasurementEntry entry) {
+    print(entry);
+    // TODO: Save Measurement Entry in database/JSON
+    Navigator.pop(context);
   }
 }
