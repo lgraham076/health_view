@@ -46,7 +46,7 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                         labelText: 'Systolic(mmHg)'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please systolic value';
+                        return 'Please enter systolic value';
                       }
                       int systolic = int.tryParse(value);
                       if (systolic == null) {
@@ -63,7 +63,7 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                         labelText: 'Diastolic(mmHg)'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please diastolic value';
+                        return 'Please enter diastolic value';
                       }
                       int diastolic = int.tryParse(value);
                       if (diastolic == null) {
