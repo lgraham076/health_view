@@ -3,27 +3,27 @@ import 'package:intl/intl.dart';
 
 import 'package:healthview/Common/components.dart';
 
-class BloodPressureEntry {
-  int systolic;
-  int diastolic;
+class MeasurementEntry {
+  int height;
+  double weight;
   DateTime entryDate = DateTime.now();
 
   @override
   String toString() {
     String formattedDate = new DateFormat('yyyy-MM-dd HH:mm').format(entryDate);
-    return '$systolic/$diastolic $formattedDate';
+    return '$height inches, $weight lbs $formattedDate';
   }
 }
 
-class BloodPressureForm extends StatefulWidget {
+class MeasurementForm extends StatefulWidget {
   @override
-  _BloodPressureFormState createState() => _BloodPressureFormState();
+  _MeasurementFormState createState() => _MeasurementFormState();
 }
 
-class _BloodPressureFormState extends State<BloodPressureForm> {
+class _MeasurementFormState extends State<MeasurementForm> {
   final _formKey = GlobalKey<FormState>();
 
-  BloodPressureEntry entry = BloodPressureEntry();
+  MeasurementEntry entry = MeasurementEntry();
 
   @override
   Widget build(BuildContext context) {
@@ -37,39 +37,39 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.favorite),
-                    title: Text('Blood Pressure'),
+                    leading: Icon(Icons.show_chart),
+                    title: Text('Measurements')
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.assignment_ind),
-                        labelText: 'Systolic(mmHg)'),
+                        icon: Icon(Icons.accessibility),
+                        labelText: 'Height(inches)'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter systolic value';
+                        return 'Please enter a height value';
                       }
-                      int systolic = int.tryParse(value);
-                      if (systolic == null) {
+                      int height = int.tryParse(value);
+                      if (height == null) {
                         return 'Please enter a valid integer';
                       } else {
-                        entry.systolic = systolic;
+                        entry.height = height;
                       }
                       return null;
                     },
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.assignment_ind),
-                        labelText: 'Diastolic(mmHg)'),
+                        icon: Icon(Icons.panorama_wide_angle),
+                        labelText: 'Weight(lbs)'),
                     validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter diastolic value';
+                        return 'Please enter a weight value';
                       }
-                      int diastolic = int.tryParse(value);
-                      if (diastolic == null) {
-                        return 'Please enter a valid integer';
+                      double weight = double.tryParse(value);
+                      if (weight == null) {
+                        return 'Please enter a valid number';
                       } else {
-                        entry.diastolic = diastolic;
+                        entry.weight = weight;
                       }
                       return null;
                     },
@@ -89,8 +89,8 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                         ).then((date) {
                           setState(() {
                             showTimePicker(
-                                    context: context,
-                                    initialTime: TimeOfDay.now())
+                                context: context,
+                                initialTime: TimeOfDay.now())
                                 .then((time) {
                               if (date != null && time != null) {
                                 setState(() {
