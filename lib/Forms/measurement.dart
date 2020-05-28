@@ -5,8 +5,14 @@ import 'package:healthview/Common/components.dart';
 
 class MeasurementEntry {
   int height;
-  int weight;
+  double weight;
   DateTime entryDate = DateTime.now();
+
+  @override
+  String toString() {
+    String formattedDate = new DateFormat('yyyy-MM-dd HH:mm').format(entryDate);
+    return '$height inches, $weight lbs $formattedDate';
+  }
 }
 
 class MeasurementForm extends StatefulWidget {
@@ -56,9 +62,9 @@ class _MeasurementFormState extends State<MeasurementForm> {
                       if (value.isEmpty) {
                         return 'Please enter a weight value';
                       }
-                      int weight = int.tryParse(value);
+                      double weight = double.tryParse(value);
                       if (weight == null) {
-                        return 'Please enter a valid integer';
+                        return 'Please enter a valid number';
                       } else {
                         entry.weight = weight;
                       }
