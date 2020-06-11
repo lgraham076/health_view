@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class Properties {
   // Members
-  static final _title = 'Health View';
-  static final _primaryColor = Colors.teal;
+  static final String _displayName = 'Health View';
+  static final String _name = "healthview";
+  static final Color _primaryColor = Colors.teal;
 
   // Getters
-  static get title => _title;
-  static get primaryColor => _primaryColor;
+  static String get displayName => _displayName;
+  static String get name => _name;
+  static Color get primaryColor => _primaryColor;
 }

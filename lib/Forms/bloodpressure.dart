@@ -2,18 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:healthview/Common/components.dart';
+import 'package:healthview/Data/models.dart';
 
-class BloodPressureEntry {
-  int systolic;
-  int diastolic;
-  DateTime entryDate = DateTime.now();
 
-  @override
-  String toString() {
-    String formattedDate = new DateFormat('yyyy-MM-dd HH:mm').format(entryDate);
-    return '$systolic/$diastolic $formattedDate';
-  }
-}
 
 class BloodPressureForm extends StatefulWidget {
   @override
@@ -126,8 +117,8 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
   }
 
   void _save(BloodPressureEntry entry) {
-    print(entry);
-    // TODO: Save Blood Pressure Entry to database/JSON
+    entry.save();
+    entry.printAll();
     Navigator.pop(context);
   }
 }

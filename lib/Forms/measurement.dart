@@ -2,18 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:healthview/Common/components.dart';
-
-class MeasurementEntry {
-  int height;
-  double weight;
-  DateTime entryDate = DateTime.now();
-
-  @override
-  String toString() {
-    String formattedDate = new DateFormat('yyyy-MM-dd HH:mm').format(entryDate);
-    return '$height inches, $weight lbs $formattedDate';
-  }
-}
+import 'package:healthview/Data/models.dart';
 
 class MeasurementForm extends StatefulWidget {
   @override
@@ -125,8 +114,8 @@ class _MeasurementFormState extends State<MeasurementForm> {
   }
 
   void _save(MeasurementEntry entry) {
-    print(entry);
-    // TODO: Save Measurement Entry in database/JSON
+    entry.save();
+    entry.printAll();
     Navigator.pop(context);
   }
 }
