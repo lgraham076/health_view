@@ -4,7 +4,8 @@ import 'package:healthview/Data/databasehandler.dart';
 import 'package:sqflite/sqflite.dart';
 
 
-
+// Abstract entry class containing shared functionality between vitals for
+// database entry
 abstract class Entry {
   String _tableName;
   DateTime entryDate = DateTime.now();
@@ -15,7 +16,6 @@ abstract class Entry {
     Database database = await DatabaseHandler().database;
     await database.insert(_tableName, this.toMap());
   }
-
 
   // Convert to map for database entry
   Map<String, dynamic> toMap();
@@ -40,6 +40,7 @@ abstract class Entry {
   }
 }
 
+// Object model used to enter blood pressure results into the database
 class BloodPressureEntry extends Entry {
   int systolic;
   int diastolic;
@@ -59,10 +60,13 @@ class BloodPressureEntry extends Entry {
   }
 
   @override
+  // Gather all the entries from the database (i.e. select *)
   Future<List<BloodPressureEntry>> selectAll() async {
     Database database = await DatabaseHandler().database;
+    // Gather all entries
     final List<Map<String, dynamic>> data = await database.query(_tableName);
 
+    // Map database entries to blood pressure objects
     return List.generate(data.length, (i) {
       BloodPressureEntry entry = BloodPressureEntry();
       entry.systolic = data[i]['systolic'];
@@ -74,6 +78,7 @@ class BloodPressureEntry extends Entry {
   }
 
   @override
+  // Convert object to map to simplify database entry
   Map<String, dynamic> toMap() {
     return {
       'entryDate' : entryDate.millisecondsSinceEpoch,
@@ -89,6 +94,7 @@ class BloodPressureEntry extends Entry {
   }
 
   @override
+  // Gather all saved entries and print them to console
   void printAll() async{
     List<BloodPressureEntry> entries = await selectAll();
     for(BloodPressureEntry entry in entries) {
@@ -97,6 +103,7 @@ class BloodPressureEntry extends Entry {
   }
 }
 
+// Object model used to enter measurement objects into the database
 class MeasurementEntry extends Entry {
   int height;
   double weight;
@@ -116,6 +123,7 @@ class MeasurementEntry extends Entry {
   }
 
   @override
+  // Convert object to map to simplify database entry
   Map<String, dynamic> toMap() {
     return {
       'entryDate' :  entryDate.millisecondsSinceEpoch,
@@ -125,10 +133,12 @@ class MeasurementEntry extends Entry {
   }
 
   @override
+  // Gather all the entries from the database (i.e. select *)
   Future<List<MeasurementEntry>> selectAll() async {
     Database database = await DatabaseHandler().database;
     final List<Map<String, dynamic>> data = await database.query(_tableName);
 
+    // Map database entries to measurement objects
     return List.generate(data.length, (i) {
       MeasurementEntry entry = MeasurementEntry();
       entry.height = data[i]['height'];
@@ -146,6 +156,7 @@ class MeasurementEntry extends Entry {
   }
 
   @override
+  // Gather all saved entries and print them to console
   void printAll() async {
     List<MeasurementEntry> entries = await selectAll();
     for(MeasurementEntry entry in entries) {
