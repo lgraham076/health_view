@@ -2,18 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:healthview/Common/components.dart';
+import 'package:healthview/Data/models.dart';
 
-class BloodPressureEntry {
-  int systolic;
-  int diastolic;
-  DateTime entryDate = DateTime.now();
 
-  @override
-  String toString() {
-    String formattedDate = new DateFormat('yyyy-MM-dd HH:mm').format(entryDate);
-    return '$systolic/$diastolic $formattedDate';
-  }
-}
 
 class BloodPressureForm extends StatefulWidget {
   @override
@@ -22,10 +13,10 @@ class BloodPressureForm extends StatefulWidget {
 
 class _BloodPressureFormState extends State<BloodPressureForm> {
   final _formKey = GlobalKey<FormState>();
+  BloodPressureEntry entry = new BloodPressureEntry();
 
   @override
   Widget build(BuildContext context) {
-    BloodPressureEntry entry = BloodPressureEntry();
     return Scaffold(
       appBar: MainAppBar(),
       body: SafeArea(
@@ -85,22 +76,22 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
                           initialDate: entry.entryDate,
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
-                        ).then((date) {
+                        ).then((dateInput) {
                           setState(() {
                             showTimePicker(
                                     context: context,
-                                    initialTime: TimeOfDay.now())
-                                .then((time) {
-                              if (date != null && time != null) {
+                                    initialTime: TimeOfDay.fromDateTime(entry.entryDate))
+                                .then((timeInput) {
+                              if (dateInput != null && timeInput != null) {
                                 setState(() {
                                   // Add date to entry
                                   entry.entryDate = DateTime(
-                                      date.year,
-                                      date.month,
-                                      date.day,
-                                      time.hour,
-                                      time.minute);
-                                  print(entry.entryDate);
+                                      dateInput.year,
+                                      dateInput.month,
+                                      dateInput.day,
+                                      timeInput.hour,
+                                      timeInput.minute);
+                                  print('BloodPressureForm-DateInput: $entry');
                                 });
                               }
                             });
@@ -126,8 +117,9 @@ class _BloodPressureFormState extends State<BloodPressureForm> {
   }
 
   void _save(BloodPressureEntry entry) {
-    print(entry);
-    // TODO: Save Blood Pressure Entry to database/JSON
+    print('BloodPressureForm-Submit: $entry');
+    entry.save();
+    entry.printAll();
     Navigator.pop(context);
   }
 }

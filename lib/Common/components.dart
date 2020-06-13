@@ -7,7 +7,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     return AppBar(
         backgroundColor: Properties.primaryColor,
-        title: Center(child: Text(Properties.title)));
+        title: Center(child: Text(Properties.displayName)));
   }
 
   @override
