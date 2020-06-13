@@ -11,10 +11,10 @@ class MeasurementForm extends StatefulWidget {
 
 class _MeasurementFormState extends State<MeasurementForm> {
   final _formKey = GlobalKey<FormState>();
+  MeasurementEntry entry = new MeasurementEntry();
 
   @override
   Widget build(BuildContext context) {
-    MeasurementEntry entry = MeasurementEntry();
     return Scaffold(
       appBar: MainAppBar(),
       body: SafeArea(
@@ -73,22 +73,22 @@ class _MeasurementFormState extends State<MeasurementForm> {
                           initialDate: entry.entryDate,
                           firstDate: DateTime(2000),
                           lastDate: DateTime(2100),
-                        ).then((date) {
+                        ).then((dateInput) {
                           setState(() {
                             showTimePicker(
                                     context: context,
-                                    initialTime: TimeOfDay.now())
-                                .then((time) {
-                              if (date != null && time != null) {
+                                    initialTime: TimeOfDay.fromDateTime(entry.entryDate))
+                                .then((timeInput) {
+                              if (dateInput != null && timeInput != null) {
                                 setState(() {
                                   // Add date to entry
-                                  entry.entryDate = DateTime(
-                                      date.year,
-                                      date.month,
-                                      date.day,
-                                      time.hour,
-                                      time.minute);
-                                  print(entry.entryDate);
+                                  entry.entryDate = new DateTime(
+                                      dateInput.year,
+                                      dateInput.month,
+                                      dateInput.day,
+                                      timeInput.hour,
+                                      timeInput.minute);
+                                  print('MeasurementForm-DateInput: $entry');
                                 });
                               }
                             });
@@ -114,6 +114,7 @@ class _MeasurementFormState extends State<MeasurementForm> {
   }
 
   void _save(MeasurementEntry entry) {
+    print('MeasurementForm-Submit: $entry');
     entry.save();
     entry.printAll();
     Navigator.pop(context);
