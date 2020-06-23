@@ -4,14 +4,16 @@ import 'package:intl/intl.dart';
 import 'package:healthview/Common/components.dart';
 import 'package:healthview/Data/models.dart';
 
-class MeasurementForm extends StatefulWidget {
+
+
+class BloodPressureForm extends StatefulWidget {
   @override
-  _MeasurementFormState createState() => _MeasurementFormState();
+  _BloodPressureFormState createState() => _BloodPressureFormState();
 }
 
-class _MeasurementFormState extends State<MeasurementForm> {
+class _BloodPressureFormState extends State<BloodPressureForm> {
   final _formKey = GlobalKey<FormState>();
-  MeasurementEntry entry = new MeasurementEntry();
+  BloodPressureEntry entry = new BloodPressureEntry();
 
   @override
   Widget build(BuildContext context) {
@@ -25,38 +27,39 @@ class _MeasurementFormState extends State<MeasurementForm> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                      leading: Icon(Icons.show_chart),
-                      title: Text('Measurements')),
+                    leading: Icon(Icons.favorite),
+                    title: Text('Blood Pressure'),
+                  ),
                   TextFormField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.accessibility),
-                        labelText: 'Height(inches)'),
-                    validator: (String value) {
+                        icon: Icon(Icons.assignment_ind),
+                        labelText: 'Systolic(mmHg)'),
+                    validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter a height value';
+                        return 'Please enter systolic value';
                       }
-                      int height = int.tryParse(value);
-                      if (height == null) {
+                      int systolic = int.tryParse(value);
+                      if (systolic == null) {
                         return 'Please enter a valid integer';
                       } else {
-                        entry.height = height;
+                        entry.systolic = systolic;
                       }
                       return null;
                     },
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                        icon: Icon(Icons.panorama_wide_angle),
-                        labelText: 'Weight(lbs)'),
-                    validator: (String value) {
+                        icon: Icon(Icons.assignment_ind),
+                        labelText: 'Diastolic(mmHg)'),
+                    validator: (value) {
                       if (value.isEmpty) {
-                        return 'Please enter a weight value';
+                        return 'Please enter diastolic value';
                       }
-                      double weight = double.tryParse(value);
-                      if (weight == null) {
-                        return 'Please enter a valid number';
+                      int diastolic = int.tryParse(value);
+                      if (diastolic == null) {
+                        return 'Please enter a valid integer';
                       } else {
-                        entry.weight = weight;
+                        entry.diastolic = diastolic;
                       }
                       return null;
                     },
@@ -82,13 +85,12 @@ class _MeasurementFormState extends State<MeasurementForm> {
                               if (dateInput != null && timeInput != null) {
                                 setState(() {
                                   // Add date to entry
-                                  entry.entryDate = new DateTime(
+                                  entry.entryDate = DateTime(
                                       dateInput.year,
                                       dateInput.month,
                                       dateInput.day,
                                       timeInput.hour,
                                       timeInput.minute);
-                                  print('MeasurementForm-DateInput: $entry');
                                 });
                               }
                             });
@@ -113,8 +115,8 @@ class _MeasurementFormState extends State<MeasurementForm> {
     );
   }
 
-  void _save(MeasurementEntry entry) {
-    print('MeasurementForm-Submit: $entry');
+  void _save(BloodPressureEntry entry) {
+    print('BloodPressureForm-Submit: $entry');
     entry.save();
     entry.printAll();
     Navigator.pop(context);
